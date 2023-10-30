@@ -39,7 +39,7 @@ export default function GoalsList({list}) {
 
   return (
     <>
-      <div className="container md:w-1/2 sm:w-3/4">
+      <div className="container flex flex-col p-8 bg-gray-200 rounded-md bg-opacity-80 from-transparent backdrop-blur-sm md:w-1/2 sm:w-3/4">
         <ul>
           {goals.map((goal) => 
             <ListItem key={goal.id} item={goal} modal={handleModal}/>

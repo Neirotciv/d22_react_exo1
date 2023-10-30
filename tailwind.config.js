@@ -5,7 +5,11 @@ export default {
 		container: {
       center: true,
     },
-		extend: {}, 
+		extend: {
+			backgroundImage: {
+				'goals': "url('/img/bg_goals.png')",
+			}
+		}, 
 	}, 
 	plugins: [], 
 }

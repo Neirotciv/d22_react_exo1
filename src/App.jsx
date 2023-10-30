@@ -17,8 +17,10 @@ const sampleGoals = [
 
 function App() {
   return (
-    <div className="relative">
-      <GoalsList list={sampleGoals} />
+    <div className="relative w-screen h-screen bg-center bg-contain bg-goals">
+      <div className="flex w-full h-full">
+        <GoalsList list={sampleGoals} />
+      </div>
     </div>
   )
 }
