@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
+import Modal from './Modal';
+
 
 export default function GoalsList({list}) {
-  const [inputValue, setInputValue] = useState();
+  const [inputValue, setInputValue] = useState('');
   const [goals, setGoals] = useState(list);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState()
 
   const handleInputGoal = (e) => {
     setInputValue(e.target.value);
@@ -19,30 +23,41 @@ export default function GoalsList({list}) {
     }
   };
 
-  const handleRemoveGoal = (id) => {
+  const handleModal = (id) => {
+    setSelectedId(id);
+    setIsModalOpen(true);
+  }
+
+  const handleRemoveGoal = () => {
     setGoals(
       goals.filter(goal =>
-        goal.id !== id
+        goal.id !== selectedId
       )
     );
+    setIsModalOpen(false);
   }
 
   return (
-    <div className="container">
-      <ul>
-        {goals.map((goal) => 
-          <ListItem key={goal.id} item={goal} deleteItem={handleRemoveGoal}/>
-        )}
-      </ul>
-      
-      <input 
-        type="text"
-        placeholder="Ajouter un nouveau but"
-        value={inputValue}
-        onChange={handleInputGoal}
-      />
-      
-      <button onClick={handleAddGoal}>Ajouter</button>
-    </div>
+    <>
+      <div className="container md:w-1/2 sm:w-3/4">
+        <ul>
+          {goals.map((goal) => 
+            <ListItem key={goal.id} item={goal} modal={handleModal}/>
+          )}
+        </ul>
+        
+        <div>
+          <input 
+            type="text"
+            placeholder="Ajouter un nouveau but"
+            value={inputValue}
+            onChange={handleInputGoal}
+          />
+          
+          <button onClick={handleAddGoal}>Ajouter</button>
+        </div>
+      </div>
+      {isModalOpen && <Modal isOpen={setIsModalOpen} deleteItem={handleRemoveGoal}/>} 
+    </>
   )
 }

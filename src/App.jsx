@@ -17,9 +17,9 @@ const sampleGoals = [
 
 function App() {
   return (
-    <devicePixelRatio>
+    <div className="relative">
       <GoalsList list={sampleGoals} />
-    </devicePixelRatio>
+    </div>
   )
 }
 
