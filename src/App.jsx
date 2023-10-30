@@ -1,5 +1,6 @@
 import './App.css'
 import React, { useState } from 'react';
+import GoalsList from './components/GoalsList';
 
 const sampleGoals = [
   {id: 1, text: "Faire les courses"},
@@ -14,62 +15,11 @@ const sampleGoals = [
   {id: 10, text: "Faire un triathlon"},
 ];
 
-function addGoal(goal) {
-  if (goal !== '') {
-    sampleGoals = [...sampleGoals, goal];
-  }
-}
-
 function App() {
-  const [inputValue, setInputValue] = useState();
-  const [goals, setGoals] = useState(sampleGoals);
-
-  const handleAddGoal = () => {
-    if (inputValue !== '') {
-      const lastId = goals[goals.length-1].id;
-      const newGoal = {id: lastId + 1, text: inputValue};
-
-      setGoals([...goals, newGoal]);
-      setInputValue('');
-    }
-  };
-
-  const handleInputGoal = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleRemoveGoal = (e) => {
-    const id = parseInt(e.target.id);
-    setGoals(
-      goals.filter(goal =>
-        goal.id !== id
-      )
-    );
-  }
-  
   return (
-    <>
-      <div className="container">
-        <ul>
-          {goals.map((goal, index) => 
-            <li key={goal.id} className=" flex justify-between">
-              {goal.id}
-              {goal.text}
-              <button id={goal.id} onClick={handleRemoveGoal}>Supprimer</button>
-            </li>
-          )}
-        </ul>
-      </div>
-
-      <input 
-        type="text"
-        placeholder="Ajouter un nouveau but"
-        value={inputValue}
-        onChange={handleInputGoal}
-      />
-      
-      <button onClick={handleAddGoal}>Ajouter</button>
-    </>
+    <devicePixelRatio>
+      <GoalsList list={sampleGoals} />
+    </devicePixelRatio>
   )
 }
 
