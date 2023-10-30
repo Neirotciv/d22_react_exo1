@@ -16,13 +16,15 @@ const sampleGoals = [
 function App() {
   return (
     <>
-      <ul>
-        {sampleGoals.map((goal, index) => 
-          <li key={index}>
-              {goal}
-          </li>
-        )}
-      </ul>
+      <div>
+        <ul>
+          {sampleGoals.map((goal, index) => 
+            <li key={index} className="">
+                {goal}
+            </li>
+          )}
+        </ul>
+      </div>
     </>
   )
 }
