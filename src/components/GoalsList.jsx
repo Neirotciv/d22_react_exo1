@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import ListItem from './ListItem';
 import Modal from './Modal';
 
-
 export default function GoalsList({list}) {
   const [inputValue, setInputValue] = useState('');
   const [goals, setGoals] = useState(list);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState()
+  const [selectedId, setSelectedId] = useState();
 
   const handleInputGoal = (e) => {
     setInputValue(e.target.value);
@@ -28,6 +27,14 @@ export default function GoalsList({list}) {
     setIsModalOpen(true);
   }
 
+  const handleEdit = (id, text) => {
+    const editedGoals = goals.map(goal =>
+      goal.id === id ? {id: id, text: text} : goal
+    );
+    console.log(editedGoals)
+    setGoals(editedGoals);
+  }
+
   const handleRemoveGoal = () => {
     setGoals(
       goals.filter(goal =>
@@ -39,22 +46,28 @@ export default function GoalsList({list}) {
 
   return (
     <>
-      <div className="container flex flex-col p-8 bg-gray-200 rounded-md bg-opacity-80 from-transparent backdrop-blur-sm md:w-1/2 sm:w-3/4">
-        <ul>
+      <div className="container flex flex-col p-8 bg-gray-200 rounded-md bg-opacity-80 from-transparent backdrop-blur-sm lg:w-3/4 xl:w-1/2 ">
+        <ul className="overflow-y-scroll">
           {goals.map((goal) => 
-            <ListItem key={goal.id} item={goal} modal={handleModal}/>
+            <ListItem key={goal.id} item={goal} modal={handleModal} onUpdate={handleEdit} />
           )}
         </ul>
         
-        <div>
+        <div className="flex w-full p-8 bg-white">
           <input 
             type="text"
             placeholder="Ajouter un nouveau but"
             value={inputValue}
             onChange={handleInputGoal}
+            className="w-3/4 p-2 border border-black"
           />
           
-          <button onClick={handleAddGoal}>Ajouter</button>
+          <button 
+            onClick={handleAddGoal}
+            className="p-2 px-8 mx-auto bg-green-500 rounded-md hover:bg-green-400"
+          >
+            Ajouter
+          </button>
         </div>
       </div>
       {isModalOpen && <Modal isOpen={setIsModalOpen} deleteItem={handleRemoveGoal}/>} 
